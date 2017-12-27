@@ -15,7 +15,6 @@ RUN apt-get update && \
 # Install the PHP extentions
 RUN docker-php-ext-install mcrypt pdo_pgsql pdo_mysql bcmath
 
-
 #####################################
 # gd:
 #####################################
