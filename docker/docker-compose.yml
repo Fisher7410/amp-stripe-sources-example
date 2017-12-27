@@ -1,0 +1,44 @@
+version: "2"
+
+services:
+
+    volumes_source:
+        image: tianon/true
+        volumes:
+            - ../src:/var/www/
+
+    volumes_logs:
+        image: tianon/true
+        volumes:
+            - ./logs:/var/logs/www/
+
+    nginx:
+        build: ./nginx
+        volumes_from:
+            - volumes_source
+            - volumes_logs
+        ports:
+            - "80:80"
+            - "443:443"
+        links:
+            - php-fpm
+
+    php-fpm:
+        build:
+            context: ./php-fpm
+            args:
+                - INSTALL_XDEBUG=true
+                - INSTALL_MEMCACHED=true
+        volumes_from:
+            - volumes_source
+            - volumes_logs
+        ports:
+            - "9000:9000"
+            - "9001:9001"
+        environment:
+            XDEBUG_CONFIG: "remote_host=192.168.1.34"
+            PHP_IDE_CONFIG: "serverName=stripe.local"
+        extra_hosts:
+            # IMPORTANT: Replace with your Dock er Host IP (will be appended to /etc/hosts)
+            # - "dockerhost:10.0.75.1"
+            - "stripe.local:192.168.99.100"

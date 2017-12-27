@@ -1,0 +1,19 @@
+{
+    "name": "amp/stripe",
+    "type": "library",
+    "authors": [
+        {
+            "name": "Ruslan Gataullin",
+            "email": "fisher7410@yandex.ru"
+        }
+    ],
+    "require": {
+        "stripe/stripe-php": "^5.7",
+        "endroid/qrcode": "^3.1"
+    },
+    "autoload": {
+        "files": [
+            "./helpers.php"
+        ]
+    }
+}
